@@ -10,31 +10,32 @@ addButton.addEventListener('click', addTask);
 function addTask() {
   // 인풋창에 입력된 텍스트가 있어야 합니다. taskText
   const taskText = taskInput.value.trim();
+  // 텍스트가 없는 상황을 제외
+  if (taskText !== '') {
+    // 태스크 아이템을 만드는 함수
+    const taskItem = createTaskItem(taskText);
+    taskList.appendChild(taskItem);
+    taskInput.value = '';
+  }
+}
 
-  // li 태그를 생성(create)합니다. taskItem
+// 리스트 (Todo) 생성 함수 선언
+function createTaskItem(taskText) {
+  // li태그를 생성하여 taskItem 변수를 지정.
   const taskItem = document.createElement('li');
-  // taskItem 텍스트(taskText)를 대입(=)합니다.
   taskItem.textContent = taskText;
-  // ul 태그 밑에 자식 태그로 추가(append)합니다.
-  taskList.appendChild(taskItem);
-  // 추가되고 난 이후 input창 값을 비워줍니다.(초기화)
-  taskInput.value = '';
-
-  // 생성한 taskItem에 이벤트리스너를 추가(click -> completeTask)해주세요.
   taskItem.addEventListener('click', completeTask);
+
+  // 버튼 태그 생성
+  const removeButton = document.createElement('button');
+  removeButton.textContent = 'x'; // x❌
+  removeButton.addEventListener('click', removeTask);
+  taskItem.appendChild(removeButton);
+  return taskItem;
 }
 
-// 할일을 완료했을 때 사용하는 함수
-function completeTask(event) {
-  const taskItem = event.target;
-  // 할일 완료 했을때 중간 줄이 쫙! 글자색도 연하게!
-  // (CSS selctor .complete)
-  taskItem.classList.add('completed');
-  taskItem.addEventListener('click', removeTask);
-}
+// 할 일 완료 함수
+function completeTask() {}
 
-// 할 일 삭제
-function removeTask(event) {
-  const taskItem = event.target;
-  taskItem.parentNode.removeChild(taskItem);
-}
+// remove task function
+function removeTask() {}
