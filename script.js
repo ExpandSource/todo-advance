@@ -46,6 +46,13 @@ function completeTask(event) {
 // 할 일 지우기 함수
 function removeTask(event) {
   const taskItem = event.target.closest('li');
+  // 로컬 저장소 remove 구현
+  const taskText = taskItem.textContent.split('❌')[0];
+  const index = tasks.indexOf(taskText);
+  if (index !== -1) {
+    tasks.splice(index, 1);
+    saveTask(tasks);
+  }
   taskItem.parentNode.removeChild(taskItem);
 }
 
@@ -57,7 +64,8 @@ function saveTask(tasks) {
 // 로컬 저장소에서 불러오기 loadTask()
 function loadTask() {
   const savedTasks = localStorage.getItem('tasks');
-  if (savedTasks) {   // 로컬저장소에 tasks가 있는 경우만 실행
+  if (savedTasks) {
+    // 로컬저장소에 tasks가 있는 경우만 실행
     tasks = JSON.parse(savedTasks);
     for (let i = 0; i < tasks.length; i++) {
       const taskItem = createTaskItem(tasks[i]);
