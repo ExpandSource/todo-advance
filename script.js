@@ -2,7 +2,7 @@
 const taskInput = document.getElementById('taskInput');
 const addButton = document.getElementById('addButton');
 const taskList = document.getElementById('taskList');
-let tasks = [];
+let tasks = [];   // 배열 값은 변경될 수 있기 때문에 const -> let
 
 // addButton이 클릭되면 이벤트가 발생하는 리스너를 추가해주세요.
 addButton.addEventListener('click', addTask);
@@ -16,8 +16,8 @@ function addTask() {
     // 태스크 아이템을 만드는 함수
     const taskItem = createTaskItem(taskText);
     taskList.appendChild(taskItem);
-    tasks.push(taskText);
-    saveTask(tasks);
+    tasks.push(taskText);   // 배열에 추가
+    saveTask(tasks);   // 로컬 저장소에 저장
     taskInput.value = '';
   }
 }
