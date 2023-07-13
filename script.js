@@ -2,7 +2,7 @@
 const taskInput = document.getElementById('taskInput');
 const addButton = document.getElementById('addButton');
 const taskList = document.getElementById('taskList');
-let tasks = [];   // 배열 값은 변경될 수 있기 때문에 const -> let
+let tasks = []; // 배열 값은 변경될 수 있기 때문에 const -> let
 
 // addButton이 클릭되면 이벤트가 발생하는 리스너를 추가해주세요.
 addButton.addEventListener('click', addTask);
@@ -16,8 +16,8 @@ function addTask() {
     // 태스크 아이템을 만드는 함수
     const taskItem = createTaskItem(taskText);
     taskList.appendChild(taskItem);
-    tasks.push(taskText);   // 배열에 추가
-    saveTask(tasks);   // 로컬 저장소에 저장
+    tasks.push(taskText); // 배열에 추가
+    saveTask(tasks); // 로컬 저장소에 저장
     taskInput.value = '';
   }
 }
@@ -57,10 +57,12 @@ function saveTask(tasks) {
 // 로컬 저장소에서 불러오기 loadTask()
 function loadTask() {
   const savedTasks = localStorage.getItem('tasks');
-  tasks = JSON.parse(savedTasks);
-  for (let i = 0; i < tasks.length; i++) {
-    const taskItem = createTaskItem(tasks[i]);
-    taskList.appendChild(taskItem);
+  if (savedTasks) {   // 로컬저장소에 tasks가 있는 경우만 실행
+    tasks = JSON.parse(savedTasks);
+    for (let i = 0; i < tasks.length; i++) {
+      const taskItem = createTaskItem(tasks[i]);
+      taskList.appendChild(taskItem);
+    }
   }
 }
 
