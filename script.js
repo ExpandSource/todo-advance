@@ -28,14 +28,20 @@ function createTaskItem(taskText) {
 
   // 버튼 태그 생성
   const removeButton = document.createElement('button');
-  removeButton.textContent = 'x'; // x❌
+  removeButton.textContent = '❌'; // x
   removeButton.addEventListener('click', removeTask);
   taskItem.appendChild(removeButton);
   return taskItem;
 }
 
 // 할 일 완료 함수
-function completeTask() {}
+function completeTask(event) {
+  const taskItem = event.target.closest('li'); // 가장 가까운 oo 태그를 찾아라.
+  taskItem.classList.toggle('completed');
+}
 
-// remove task function
-function removeTask() {}
+// 할 일 지우기 함수
+function removeTask(event) {
+  const taskItem = event.target.closest('li');
+  taskItem.parentNode.removeChild(taskItem);
+}
